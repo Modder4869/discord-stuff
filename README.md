@@ -21,7 +21,9 @@ This is by no means complete or done, and shouldn't be seen as such.
 * awkwardly sized/positioned parts
 
 ### Screenshots:
-**On it's own:** 
+
+**On it's own:**
+ 
 ![notheme](https://files.catbox.moe/rtfj5c.png)
 
 **Together with another theme:**
