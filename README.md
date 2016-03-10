@@ -24,7 +24,8 @@ This is by no means complete or done, and shouldn't be seen as such.
 
 **On it's own:**
  
-![notheme](https://files.catbox.moe/rtfj5c.png)
+![notheme](https://files.catbox.moe/dvg558.png)
 
 **Together with another theme:**
-![theme](https://files.catbox.moe/tl6i82.png)
+
+![theme](https://files.catbox.moe/p2bblx.png)
