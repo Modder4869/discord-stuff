@@ -7,18 +7,20 @@ Personaly I only made this to get as much normal looking discord as possible whi
 
 This is by no means complete or done, and shouldn't be seen as such.
 
-### key features:
+### key 'features':
 * scaled down overall gui
 * chat moved to left to get the best chat experience on half your tiny second monitor
 * should work with most other custom themes
 
-### side features:
+### side 'features':
 * bigger quick emote menu
-* stupid hover animations for avatars and emoticons/emojis [**optional**] (enable uncomment at the bottom of .css)
+* stupid hover animations for avatars and emoticons/emojis **optional** (to enable uncomment 
+at the bottom of .css)
 
-### known problems:
+### known 'problems':
 * parts misplaced or hidden
 * awkwardly sized/positioned parts
+* have to re-enable theme after enabling another theme for it to scale correctly
 
 ### Screenshots:
 
