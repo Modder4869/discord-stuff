@@ -1,4 +1,4 @@
-//META{"name":"Cat's minimal","description":"A rough thrown together minimal theme","author":"Catblaster/PartyCkat","version":".1"}*//
+//META{"name":"Cat's minimal","description":"A rough thrown together minimal theme","author":"Catblaster/PartyCkat","version":".2"}*//
 
 /*-----------------------------------\
            left panel                |
@@ -10,6 +10,9 @@
     width: 170px;
     margin-left: 0px;
     padding: 0 0 !important;
+}
+bd-minimal .guilds li .avatar-small, #bd-pub-button {
+    font-size: 10px !important;
 }
 .channel-textarea {margin:0px!important;}
 .guilds-wrapper{width:30px!important;}
@@ -24,9 +27,19 @@
     font-size: 13px!important;
     padding: 0px!important;
 }
+.guilds-add{
+    font-size:30px!important;
+}
+.guilds-separator{
+    margin-bottom:-50px!important;
+}
+.guilds li .guild-inner {
+    line-height: 30px!important;
+}
 .guilds .friends-icon {
     width: 30px!important;
     height: 30px!important;
+    background-size:20px 20px!important;
 }
 .guilds li .avatar-small {
     width: 30px!important;
