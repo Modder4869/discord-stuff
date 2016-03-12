@@ -20,7 +20,6 @@ at the bottom of .css)
 ### known 'problems':
 * parts misplaced or hidden
 * awkwardly sized/positioned parts
-* have to re-enable theme after enabling another theme for it to scale correctly
 
 ### Screenshots:
 
