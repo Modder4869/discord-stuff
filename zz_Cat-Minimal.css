@@ -23,6 +23,9 @@ bd-minimal .guilds li .avatar-small, #bd-pub-button {
     line-height: .8em!important;
     padding: 0!important;
 }
+.guild-header{
+    height: 30px!important;
+}
 #voice-connection {
     font-size: 13px!important;
     padding: 0px!important;
@@ -105,7 +108,7 @@ left:0px!important;
     margin-right: 5px!important;
 }
 #emote-menu {
-    width: 400px!important;
+    width: 460px!important;
     position: absolute!important;
     bottom: -9px!important;
 }
