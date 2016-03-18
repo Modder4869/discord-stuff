@@ -13,8 +13,9 @@
 }
 .guilds .friends-online {
     font-size: 8px!important;
-    margin: 20px 0;
-    width: 30px;
+    margin-top:-8px!important;
+    margin-bottom: 15px!important;
+    width: 30px!important;
 }
 bd-minimal .guilds li .avatar-small, #bd-pub-button {
     font-size: 10px !important;
