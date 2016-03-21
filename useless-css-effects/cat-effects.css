@@ -21,23 +21,47 @@
     transition: .5s ease!important;
 }
 .emoji, .emote {
-    transform: scale(1, 1);
-    transition: .5s ease ;
+    transform: initial!important;
+    transition: .5s ease !important;
 }
 .member {
-    transform:rotate(0deg);
-    transition: 5s all;
+    transform:initial!important;
+    transition: 5s all!important;
 }
 .member:hover {
-    transform:rotate(360deg);
-    transition: 1h all;
+    transform:rotate(360deg)!important;
+    transition: 1h all!important;
 }
 .message-group:hover .timestamp {
-    text-shadow: 0 0 1px white;
-    transition: .5s ease ;
+    text-shadow: 0 0 1px white!important;
+    transition: .5s ease !important;
     
 }
 .message-group .timestamp {
-    text-shadow: 0 0 2px hsla(0,0%,100%,.2);
-    transition: .5s ease ;
+    text-shadow: initial!important;
+    transition: .5s ease !important;
+}
+.message-group:hover {
+    text-shadow: 0 0 .3px white!important;
+   	background:rgba(0%, 0%, 0%, 0.5)!important;
+    transition: 1s ease !important;
+    
+}
+.message-group {
+   	transform:initial!important;
+    transition: .5s ease !important;
+    
+}
+.embed .embed-thumbnail:hover,
+.message-group .comment .attachment-image a:hover {
+	transform: scale(1.5, 1.5) translate(100px,40px)!important;
+    z-index:666!important;
+    transition: .5s ease!important;
+}
+
+.embed .embed-thumbnail, 
+.message-group .comment .attachment-image a {
+	transform: initial!important;
+    z-index:6!important;
+    transition: 1s ease!important;
 }
