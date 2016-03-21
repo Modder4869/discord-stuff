@@ -1,19 +1,24 @@
 .guilds li .guild-inner:hover {
-    opacity:.8!important;
-    transform:translate(-5px,0px)!important;
-    transition: .5s ease!important;
+    -webkit-filter: brightness(.5)!important;
+    -webkit-animation:spin 2s linear infinite!important;
+    transition: 2s ease!important;
 }
 .guilds li .guild-inner {
     transform:initial;
-    transition: .5s ease!important;
+    transition: 1s ease!important;
 }
 .avatar-large:hover {
-    opacity:.8!important;
-    -webkit-animation:spin 2s linear infinite;
+    -webkit-filter: brightness(.5)!important;
+    -webkit-animation:spin 2s linear infinite!important;
+    transition: 2s ease!important;
+}
+.avatar-large {
+    transform:initial;
+    transition: 1s ease!important;
 }
 .emoji:hover, .emote:hover {
-    transform: scale(1.3, 1.3);
-    transition: .5s ease;
+    transform: scale(1.3, 1.3)!important;
+    transition: .5s ease!important;
 }
 .emoji, .emote {
     transform: scale(1, 1);
