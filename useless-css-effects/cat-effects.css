@@ -54,7 +54,7 @@
 }
 .embed .embed-thumbnail:hover,
 .message-group .comment .attachment-image a:hover {
-	transform: scale(1.5, 1.5) translate(100px,40px)!important;
+	transform: scale(1.1, 1.1) translate(-10px, 5px)!important;
     z-index:666!important;
     transition: .5s ease!important;
 }
@@ -62,6 +62,7 @@
 .embed .embed-thumbnail, 
 .message-group .comment .attachment-image a {
 	transform: initial!important;
-    z-index:6!important;
+    z-index:0!important;
     transition: 1s ease!important;
 }
+
