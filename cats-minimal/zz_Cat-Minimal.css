@@ -194,3 +194,38 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
 	height:20px!important;
     width:auto!important;
 }
+
+/*-----------------------------------\
+   optional transparency things      |
+------------------------------------*/
+/*
+/*transparency fix*/
+.messages-wrapper {
+    background: transparent !important;
+}
+#friends,
+.friends-header,
+.friends-table{
+	background:rgba(0%, 0%, 0%, 0.4)!important;
+}
+#friends .friends-table .friends-row:hover {
+	background:rgba(0%, 0%, 0%, 0.4)!important;
+}
+
+/*emote menu transparancy*/
+#emote-menu, 
+#emote-menu-header,  
+.emote-menu-tab {
+    background:rgba(0%, 0%, 0%, 0.3)!important;
+}
+emote-menu-tab-selected, 
+.emote-menu-tab-selected:hover{
+	background:rgba(0%, 0%, 0%, 0.9)!important;
+}
+
+/*autocomplete menu*/
+.channel-textarea-autocomplete-inner {
+	background:rgba(0%, 0%, 0%, 0.7)!important;
+    border:none!important;
+}
+*/
