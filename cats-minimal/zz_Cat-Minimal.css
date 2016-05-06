@@ -1,4 +1,5 @@
-//META{"name":"Cat's minimal","description":"A rough thrown together minimal theme","author":"Catblaster/PartyCkat","version":".2"}*//
+//META{"name":"Cat's minimal","description":"A rough thrown together minimal 
+theme","author":"Catblaster/PartyCkat","version":".33"}*//
 /*-----------------------------------\
            left panel                |
 ------------------------------------*/
@@ -102,15 +103,24 @@ margin-right: 0px!important;
            chat                      |
 ------------------------------------*/
 .chat form{margin:0px 0px 26px 5px!important;}
-#twitchcord-button {
-background-image: url(https://static-cdn.jtvnw.net/emoticons/v1/24/1.0)!important;
-background-color: transparent!important;
-background-size:20px!important;
-position:absolute!important;
-top:55px!important;
-left:0px!important;
+
+.channel-textarea-emoji>.sprite-item,
+.theme-dark .channel-textarea-emoji {
+    opacity:1;
 }
-#twitchcord-button.twitchcord-button-open {background-image: url(https://static-cdn.jtvnw.net/emoticons/v1/58127/1.0)!important;}
+.channel-textarea-emoji>.sprite-item,
+.channel-textarea-emoji.hovered .sprite-item, 
+.channel-textarea-emoji.popout-open .sprite-item {
+    background-image:url(https://static-cdn.jtvnw.net/emoticons/v1/80803/1.0) !important;
+    background-size:100% !important;
+    background-position:initial !important;
+    transform:scale(1);
+    margin: -12px 0px -12px 10px!important;
+}
+
+.channel-textarea-emoji {
+    margin: -12px 0px -12px 10px!important;
+}
 .message-group .edit-message {
     margin: -6px -45px 1px -56px!important;
 }
@@ -161,7 +171,7 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
 }
 .typing{
     position: absolute!important;
-    bottom: -30px!important;
+    bottom: -27px!important;
 }
 .theme-dark .channel-textarea-inner .channel-textarea-upload {
     border-right-color: hsla(0,0%,20%,.2)!important;
@@ -198,7 +208,7 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
 /*-----------------------------------\
    optional transparency things      |
 ------------------------------------*/
-/*
+
 /*transparency fix*/
 .messages-wrapper {
     background: transparent !important;
@@ -228,4 +238,3 @@ emote-menu-tab-selected,
 	background:rgba(0%, 0%, 0%, 0.7)!important;
     border:none!important;
 }
-*/

@@ -13,8 +13,8 @@ it should work with most other themes (like the build in discord minimal)
 
 **On it's own:**
  
-![notheme](https://files.catbox.moe/dvg558.png)
+![notheme](https://ckat.space/ship/DGr.png)
 
 **Together with another theme:**
 
-![theme](https://files.catbox.moe/p2bblx.png)
+![theme](https://ckat.space/ship/aOo.png)
