@@ -1,5 +1,4 @@
-//META{"name":"Cat's minimal","description":"A rough thrown together minimal 
-theme","author":"Catblaster/PartyCkat","version":".33"}*//
+//META{"name":"Cat's minimal","description":"A rough thrown together minimal theme","author":"Catblaster/PartyCkat","version":"0.33"}*//
 /*-----------------------------------\
            left panel                |
 ------------------------------------*/
@@ -171,7 +170,9 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
 }
 .typing{
     position: absolute!important;
-    bottom: -27px!important;
+	bottom:-26px!important;
+    font-size:11px!important;
+
 }
 .theme-dark .channel-textarea-inner .channel-textarea-upload {
     border-right-color: hsla(0,0%,20%,.2)!important;
