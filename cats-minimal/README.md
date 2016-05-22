@@ -13,8 +13,8 @@ it should work with most other themes (like the build in discord minimal)
 
 **On it's own:**
  
-![notheme](https://ckat.space/ship/DGr.png)
+![notheme](https://ckat.space/ship/Dpw.png)
 
 **Together with another theme:**
 
-![theme](https://ckat.space/ship/aOo.png)
+![theme](https://ckat.space/ship/PkF.png)

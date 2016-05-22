@@ -1,9 +1,9 @@
-.guilds li .guild-inner:hover {
+.guild .guild-inner:hover {
     -webkit-filter: brightness(.5)!important;
     -webkit-animation:spin 2s linear infinite!important;
     transition: 2s ease!important;
 }
-.guilds li .guild-inner {
+.guild .guild-inner {
     transform:initial;
     transition: 1s ease!important;
 }

@@ -1,4 +1,4 @@
-//META{"name":"Cat's minimal","description":"A rough thrown together minimal theme","author":"Catblaster/PartyCkat","version":"0.33"}*//
+//META{"name":"Cat's minimal","description":"A rough thrown together minimal theme","author":"Catblaster/Ckath","version":"0.44"}*//
 /*-----------------------------------\
            left panel                |
 ------------------------------------*/
@@ -6,8 +6,8 @@
     height: 40px!important;
     font-size:11px!important;
     padding: 0px!important;
-    width: 170px;
-    margin-left: 0px;
+    width: 170px!important;
+    margin-left: 0px!important;
     padding: 0 0 !important;
 }
 .guilds .friends-online {
@@ -16,7 +16,7 @@
     margin-bottom: 15px!important;
     width: 30px!important;
 }
-bd-minimal .guilds li .avatar-small, #bd-pub-button {
+bd-minimal .guild .avatar-small, #bd-pub-button {
     font-size: 10px !important;
 }
 .channel-textarea {margin:0px!important;}
@@ -38,22 +38,28 @@ bd-minimal .guilds li .avatar-small, #bd-pub-button {
 .guilds-add{
     font-size:30px!important;
 }
-.guilds-separator{
-    margin-bottom:-50px!important;
+.guild-separator{
+    width:30px!important;
 }
-.guilds li .guild-inner {
+.guild .guild-inner {
     line-height: 30px!important;
 }
-.guilds .friends-icon {
+.guild .friends-icon {
     width: 30px!important;
     height: 30px!important;
     background-size:20px 20px!important;
 }
-.guilds li .avatar-small {
+.guilds-wrapper .guilds .friends-online{
+    padding-top:10px!important;
+    text-align:center!important;
+    width: 10px!important;
+    height: 10px!important;
+}
+.guild .avatar-small {
     width: 30px!important;
     height: 30px!important;
 }
-.guilds li.audio .guild-inner:after {
+.guild.audio .guild-inner:after {
     top: -4px!important;
     right: 1px!important;
     width: 12px!important;
@@ -61,7 +67,7 @@ bd-minimal .guilds li .avatar-small, #bd-pub-button {
     background-size: 9px!important;
     border-radius: 10px!important;
 }
-.guilds li {
+.guild {
     width: 30px!important;
     height: 30px!important;
 }
@@ -71,13 +77,13 @@ bd-minimal .guilds li .avatar-small, #bd-pub-button {
 #voice-connection .btn {
     width: 18px!important;
 }
-.guilds li .guild-inner a {
+.guild .guild-inner a {
     width: 30px!important;
     height: 30px!important;
 }
-.guilds li .avatar-small {background-size: 30px 30px!important;}
+.guild .avatar-small {background-size: 30px 30px!important;}
 .guild-channels ul .channel-text a {padding: 4px 0px 4px 8px!important;}
-.guilds li.unread .guild-inner:before, .guild-channels ul .channel-text.unread:not(.selected):not(.channel-muted):before {background: #ffffff!important;}
+.guild.unread .guild-inner:before, .guild-channels ul .channel-text.unread:not(.selected):not(.channel-muted):before {background: #ffffff!important;}
 .guild-channels ul .channel-text.unread:not(.selected):not(.channel-muted):before {
     content: ' '!important;
     width: 12px!important;
@@ -85,6 +91,19 @@ bd-minimal .guilds li .avatar-small, #bd-pub-button {
     border-radius: 5px!important;
     top: 2px!important;
     left: -8px!important;
+}
+.guild-channels .channel-text.unread:not(.selected):not(.channel-muted):before {
+    width: 10px!important;
+    height: 4px!important;
+    top: 7px!important;
+    left: -2px!important;
+}
+.guild-channels .channel-text a {
+    padding: 1px 0px 1px 0px!important;
+}
+.guild-channels .channel-voice-states,
+.guild-channels .channel-voice {
+    padding: 0px!important;
 }
 .guild-channels ul .channel-voice-states {
     margin-top: -1px!important;
@@ -98,10 +117,14 @@ margin-right: 0px!important;
     padding-left: 0px!important;
 }
 
+.badge {
+    border-radius: 0px!important;
+    padding: 0px 2px!important;
+}
 /*-----------------------------------\
            chat                      |
 ------------------------------------*/
-.chat form{margin:0px 0px 26px 5px!important;}
+.chat form{margin:0px 0px 20px 5px!important;}
 
 .channel-textarea-emoji>.sprite-item,
 .theme-dark .channel-textarea-emoji {
@@ -150,6 +173,9 @@ margin-right: 0px!important;
     position: absolute!important;
     bottom: -20px!important;
 }
+.popout.popout-top, .popout.popout-top-right {
+    margin-top: 10px!important;
+}
 .embed .embed-thumbnail img{margin: 5px 22px!important;}
 .embed .image {margin: 5px 22px!important;}
 .embed {
@@ -169,9 +195,11 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
     border-radius: 20px!important;
 }
 .typing{
-    position: absolute!important;
-	bottom:-26px!important;
-    font-size:11px!important;
+    overflow:hidden!important;
+	top: -15px!important;
+    font-size:10px!important;
+    padding:0px!important;
+    margin:0px!important;
 
 }
 .theme-dark .channel-textarea-inner .channel-textarea-upload {
@@ -192,10 +220,10 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
     font-size:120%!important;
 }
 .message-group .comment {
-    line-height:8px;
+    line-height:8px!important;
 }
 .message-group {
-    padding: 10px 0!important;
+    padding: 5px 0!important;
 }
 .emote {
     height:27px!important;
@@ -208,6 +236,7 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
 
 /*-----------------------------------\
    optional transparency things      |
+             [outdated]              |
 ------------------------------------*/
 
 /*transparency fix*/
