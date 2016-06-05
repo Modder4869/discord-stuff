@@ -10,6 +10,14 @@
     margin-left: 0px!important;
     padding: 0 0 !important;
 }
+.guilds-wrapper .guilds .guild:before{
+    margin-top:11px!important;
+    left:0px!important;
+	width:4px!important;
+    height:5px!important;
+    z-index:666!important;
+    border-radius:0px!important;
+}
 .guilds .friends-online {
     font-size: 8px!important;
     margin-top:-8px!important;
