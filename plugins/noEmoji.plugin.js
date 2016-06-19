@@ -3,10 +3,10 @@ var noEmoji = function(){};
 noEmoji.prototype.convert = function(){
     $(".message img").each(function(){
         var text = $(this);
-        // identify emojis by lack of href
-        if(text.attr("href") != undefined)
+        // identify emojis by lack of href, check for .svg src to exclude emotes
+        if(text.attr("href") != undefined || !text.attr("src").endsWith(".svg"))
             return true
-        else 
+        else
             text.replaceWith(text.attr("alt"))
     });
 };
