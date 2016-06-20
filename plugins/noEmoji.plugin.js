@@ -12,7 +12,7 @@ noEmoji.prototype.convert = function(){
 };
 
 noEmoji.prototype.onMessage = function(){
-    setTimeout(this.convert(), 2000);
+    this.convert();
 };
 noEmoji.prototype.onSwitch = function(){
     this.convert();
@@ -33,7 +33,7 @@ noEmoji.prototype.getDescription = function(){
     return "Replaces emoji pics with whatever is in their alt attribute,  most of the time the symbol version of emoji.";
 };
 noEmoji.prototype.getVersion = function(){
-    return "0.1";
+    return "0.1.1";
 };
 noEmoji.prototype.getAuthor = function(){
     return "Catblaster/Ckath";
