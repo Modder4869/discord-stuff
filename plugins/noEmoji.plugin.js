@@ -4,7 +4,8 @@ noEmoji.prototype.convert = function(){
     $(".message img").each(function(){
         var text = $(this);
         // identify emojis by lack of href, check for .svg src to exclude emotes
-        if(text.attr("href") != undefined || !text.attr("src").endsWith(".svg"))
+        if(text.attr("href") != undefined || !text.attr("src").endsWith(".svg") || text.attr("src").endsWith("d72f52ce6c418c5c8fd5faac0e8c36ff.svg") || 
+        text.attr("src").endsWith("d72f52ce6c418c5c8fd5faac0e8c36ff.svg") || text.attr("src").endsWith("86c36b8437a0bc80cf310733f54257c2.svg"))
             return true
         else
             text.replaceWith(text.attr("alt"))
