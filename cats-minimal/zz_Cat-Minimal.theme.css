@@ -200,7 +200,6 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
     width: 30px!important;
     height: 30px!important;
     background-size: 30px 30px!important;
-    border-radius: 20px!important;
 }
 .typing{
     overflow:hidden!important;
@@ -220,10 +219,6 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
     background-size: 13px 13px!important;
 }
 .channel-textarea-inner {padding:0px!important;}
-.emote {
-  width:27px!important;
-  height:27x!important;
-}
 .CodeMirror-code {
     font-size:120%!important;
 }
@@ -232,14 +227,6 @@ a, abbr, acronym, address, applet, big, blockquote, body, caption, cite, code, d
 }
 .message-group {
     padding: 5px 0!important;
-}
-.emote {
-    height:27px!important;
-    width:auto!important;
-}
-.emoji{
-	height:20px!important;
-    width:auto!important;
 }
 
 /*-----------------------------------\

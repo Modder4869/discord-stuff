@@ -1,13 +1,6 @@
 # Cat's minimal discord theme
-This is a quick thrown together css theme for discord (requires betterdiscord to use).
-
-The normal minimal theme build in with betterdiscord felt a bit lacking in my opinion, hence 
-I made this.
-Personaly I only made this to get as much normal looking discord as possible while keeping it on half of my second monitor.
-
-This is by no means complete or done, and shouldn't be seen as such.
-
-it should work with most other themes (like the build in discord minimal)
+This is a quick attempt at downscaling discord, mainly put together to fit discord nicely on my small second monitor.
+It 'should' work with most other themes as it attempts to overwrite anything by being loaded as last and being fully !important, no garentees.
 
 ### Screenshots:
 
