@@ -1,9 +1,10 @@
 //META{"name":"noEmoji"}*//
 var noEmoji = function(){};
 noEmoji.prototype.replace = function(){
-    $(".emoji").each(function(){
+    $('.emoji').each(function(){
         var text = $(this);
-        text.replaceWith(text.attr("alt"));
+	if(text.attr('src').endsWith('.svg'))
+            text.replaceWith(text.attr('alt'));
     });
 };
 
