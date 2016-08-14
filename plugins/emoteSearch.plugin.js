@@ -33,7 +33,7 @@ emoteSearch.prototype.attachParser = function(){
 	            e.stopPropagation();
 	            return;
 	        }
-	    }catch(e){ console.warn("randEmote: unable to attach to textarea: " + e); }
+	    }catch(e){ console.warn("emoteSearch: unable to attach to textarea: " + e); }
     };
     el[0].addEventListener("keydown", this.handleKeypress, false);
 };
