@@ -11,3 +11,9 @@ Replaces emoji pics with whatever is in their alt attribute,  most of the time t
 Send one ore more random emotes with /emote <amount>
 
 ![randEmote](https://ckat.space/ship/JsP.gif)
+
+## Emote Search
+
+Search through all emotes in BD with /es <search>
+
+![searchEmote](https://ckat.space/ship/UDV.gif)
