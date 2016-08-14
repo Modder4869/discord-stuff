@@ -3,7 +3,8 @@ var randEmote = function () {};
 var emoteArray = [];
 randEmote.prototype.start = function () {
     this.attachParser();
-    for(var k in emotesTwitch) emoteArray.push(k);
+    for(var k in emotesTwitch['emotes']) emoteArray.push(k);
+    for(var k in subEmotesTwitch) emoteArray.push(k);
     for(var k in emotesFfz) emoteArray.push(k);
     for(var k in emotesBTTV) emoteArray.push(k);
     for(var k in emotesBTTV2) emoteArray.push(k);
@@ -70,7 +71,7 @@ randEmote.prototype.getDescription = function () {
     return "Send one ore more random emotes with /emote <amount>";
 };
 randEmote.prototype.getVersion = function () {
-    return ".1";
+    return ".2";
 };
 randEmote.prototype.getAuthor = function () {
     return "Ckat/Catblaster";
