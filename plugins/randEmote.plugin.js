@@ -68,7 +68,7 @@ randEmote.prototype.getName = function () {
     return "Random emotes";
 };
 randEmote.prototype.getDescription = function () {
-    return "Send one ore more random emotes with /emote <amount>";
+    return "Send one or more random emotes with /emote <amount>";
 };
 randEmote.prototype.getVersion = function () {
     return ".2";

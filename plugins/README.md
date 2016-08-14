@@ -8,7 +8,7 @@ Replaces emoji pics with whatever is in their alt attribute,  most of the time t
 
 ##Random Emotes
 
-Send one ore more random emotes with /emote <amount>
+Send one or more random emotes with /emote <amount>
 
 ![randEmote](https://ckat.space/ship/JsP.gif)
 
