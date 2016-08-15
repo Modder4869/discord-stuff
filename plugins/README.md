@@ -17,3 +17,10 @@ Send one or more random emotes with /emote <amount>
 Search through all emotes in BD with /es <search>
 
 ![searchEmote](https://ckat.space/ship/UDV.gif)
+
+## Mention all
+
+Attempt to mention all users in channel/server, this kinda works,
+not that this plugin needs bd+ to work
+
+![mentionAll](https://ckat.space/ship/RgD.gif)
