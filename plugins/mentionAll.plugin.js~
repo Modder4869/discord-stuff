@@ -70,7 +70,7 @@ mentionAll.prototype.getName = function () {
     return "Mention all";
 };
 mentionAll.prototype.getDescription = function () {
-    return "mention all active users or something with /all";
+    return "mention all active users or something with @all";
 };
 mentionAll.prototype.getVersion = function () {
     return ".1";
