@@ -3,17 +3,12 @@ var emoteSearch = function () {};
 var emoteStore;
 emoteSearch.prototype.start = function () {
     this.attachParser();
-    var Twitchemotes = {};
-    var TwitchsubEmotes = {};
-    var Ffzemotes = {};
-    var BTTV2emotes = {};
+    var start = (new Date).getTime();
     try{
-        for(var k in emotesTwitch['emotes']) Twitchemotes[k] = '//static-cdn.jtvnw.net/emoticons/v1/' + emotesTwitch['emotes'][k].image_id + '/1.0' 
-        for(var k in subEmotesTwitch) TwitchsubEmotes[k] = '//static-cdn.jtvnw.net/emoticons/v1/' + subEmotesTwitch[k] + '/1.0' 
-        for(var k in emotesFfz) Ffzemotes[k] = '//cdn.frankerfacez.com/emoticon/' + emotesFfz[k] + '/1'; 
-        for(var k in emotesBTTV2) BTTV2emotes[k] = '//cdn.betterttv.net/emote/' + emotesBTTV2[k] + '/1x'; 
-        emoteStore = jQuery.extend(Twitchemotes, TwitchsubEmotes, Ffzemotes, emotesBTTV, BTTV2emotes);
+        emoteStore = jQuery.extend({}, emotesTwitch["emotes"], subEmotesTwitch, emotesFfz, emotesBTTV, emotesBTTV2);
         console.log('emoteSearch: emotes loaded');
+        var diff = (new Date).getTime() - start;
+        console.log('emoteSearch: took ' + diff + 'ms');
     }catch(e){ console.warn('emoteSearch: failed to load emotes: ' + e); }
 };
 emoteSearch.prototype.attachParser = function(){
@@ -45,7 +40,20 @@ emoteSearch.search = function(s) {
 emoteSearch.showPrompt = function(emoteArray) {
     var emotePics = "";
     for(i=0;i<emoteArray.length;i++){
-        emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="$(\'.channel-textarea textarea\').val($(\'.channel-textarea textarea\').val()+\''+' '+emoteArray[i]+'\')" class=emote src='+emoteStore[emoteArray[i]]+' alt='+emoteArray[i]+'></a></span>';
+        var emoteKey = emoteArray[i];
+        var emote = "";
+        if (emotesTwitch["emotes"].hasOwnProperty(emoteKey)) {
+            emote = '//static-cdn.jtvnw.net/emoticons/v1/' + emotesTwitch['emotes'][emoteKey].image_id + '/1.0' 
+        } else if (subEmotesTwitch.hasOwnProperty(emoteKey)) {
+            emote = '//static-cdn.jtvnw.net/emoticons/v1/' + subEmotesTwitch[emoteKey] + '/1.0' 
+        } else if (emotesFfz.hasOwnProperty(emoteKey)) {
+            emote = '//cdn.frankerfacez.com/emoticon/' + emotesFfz[emoteKey] + '/1'; 
+        } else if (emotesBTTV.hasOwnProperty(emoteKey)) {
+            emote = emotesBTTV[emoteKey];
+        } else if (emotesBTTV2.hasOwnProperty(emoteKey)) {
+            emote = '//cdn.betterttv.net/emote/' + emotesBTTV2[emoteKey] + '/1x'; 
+        }
+        emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="$(\'.channel-textarea textarea\').val($(\'.channel-textarea textarea\').val()+\''+' '+emoteKey+'\')" class=emote src='+emote+' alt='+emoteKey+'></a></span>';
     }
     Core.prototype.alert(emoteArray.length + " results found",emotePics);
 }
@@ -67,8 +75,9 @@ emoteSearch.prototype.getDescription = function () {
     return "Search through all emotes in bd with /es <search>";
 };
 emoteSearch.prototype.getVersion = function () {
-    return ".1";
+    return ".1.1";
 };
 emoteSearch.prototype.getAuthor = function () {
-    return "Ckat/Catblaster";
+    return "Ckat/Catblaster edited by confus";
 };
+
