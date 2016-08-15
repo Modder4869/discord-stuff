@@ -1,6 +1,5 @@
 //META{"name":"mentionAll"}*//
 var mentionAll = function () {};
-var emoteArray = [];
 mentionAll.prototype.start = function () {
     this.attachParser();
 };
