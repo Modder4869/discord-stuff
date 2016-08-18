@@ -70,7 +70,7 @@ emoteSearch.showPrompt = function(loopStart, loopEnd) {
         var nextEnd = loopEnd+100;
         emotePics += '<button onclick="$(\'.markdown-modal-close\').click(); emoteSearch.showPrompt('+ nextStart +','+ nextEnd +')" style="position:absolute;top:0px;right:10%;">------></button>';
     }
-    console.log('loopstart: '+loopStart+' loopend: '+loopEnd);
+
     var totalPages = resultStore.length % 100 == 0 ? resultStore.length/100 : (resultStore.length/100 | 0) + 1;
     var currentPage = loopEnd == resultStore.length ? totalPages : loopEnd/100;  
     Core.prototype.alert(resultStore.length + " emotes found | page "+currentPage+"/"+totalPages,emotePics);
