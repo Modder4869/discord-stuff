@@ -71,7 +71,9 @@ emoteSearch.showPrompt = function(loopStart, loopEnd) {
         emotePics += '<button onclick="$(\'.markdown-modal-close\').click(); emoteSearch.showPrompt('+ nextStart +','+ nextEnd +')" style="position:absolute;top:0px;right:10%;">------></button>';
     }
     console.log('loopstart: '+loopStart+' loopend: '+loopEnd);
-    Core.prototype.alert(resultStore.length + " results found | page "+loopEnd/100,emotePics);
+    var totalPages = resultStore.length % 100 == 0 ? resultStore.length/100 : (resultStore.length/100 | 0) + 1;
+    var currentPage = loopEnd == resultStore.length ? totalPages : loopEnd/100;  
+    Core.prototype.alert(resultStore.length + " emotes found | page "+currentPage+"/"+totalPages,emotePics);
 }
 emoteSearch.prototype.onSwitch = function () {
     this.attachParser();
@@ -91,7 +93,7 @@ emoteSearch.prototype.getDescription = function () {
     return "Search through all emotes in bd with /es emoteuwant";
 };
 emoteSearch.prototype.getVersion = function () {
-    return ".2.1";
+    return ".2.2";
 };
 emoteSearch.prototype.getAuthor = function () {
     return "Ckat/Catblaster edited by confus";
