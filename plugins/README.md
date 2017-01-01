@@ -1,8 +1,8 @@
 # Plugins:
 
-##(slightly) Better Avatars
+##Animate Avatars
 
-Terribly inefficeint way to replace avatars with higher quality versions and auto-animate nitro avatars
+Terribly inefficient way to always animate avatars, which is also terribly inefficient.
 
 ## ~~No Emoji~~Discord broke it
 
