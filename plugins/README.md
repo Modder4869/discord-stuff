@@ -1,5 +1,9 @@
 # Plugins:
 
+##(slightly) Better Avatars
+
+Terribly inefficeint way to replace avatars with higher quality versions and auto-animate nitro avatars
+
 ## ~~No Emoji~~Discord broke it
 
 ~~Replaces emoji pics with whatever is in their alt attribute,  most of the time the symbol version of emoji.~~
