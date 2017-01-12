@@ -1,4 +1,7 @@
 # Plugins:
+##Translate with Google
+
+Adds a "Translate with Google" option, similar to the existing "Search with Google"
 
 ##Animate Avatars
 
