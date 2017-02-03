@@ -18,7 +18,7 @@ mv /tmp/bd/lib/Utils.js /tmp/bd/lib/utils.js
 sed -i "s/'\/var\/local'/process.env.HOME + '\/.config'/g" /tmp/bd/lib/BetterDiscord.js
 
 echo "=> removing old app folder"
-sudo rm -rf "$1/resources/app"
+rm -rf "$1/resources/app"
 
 echo "=> unpacking discord asar"
 asar e "$1/resources/app.asar" "$1/resources/app"
