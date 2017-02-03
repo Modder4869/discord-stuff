@@ -2,11 +2,20 @@
 # simple script to install bd
 # first argument should be discord directory
 # deps: nodejs asar(install through npm install -g asar), sed, wget, unzip
-# Ckat 2017-02-03
+# (c) Ckat 2017-02-03
 
 ROOT_UID="0"
 [ -z "$1" ] && echo "error: No discord directory supplied" && exit 1
 [ "$UID" -ne "$ROOT_UID" ] && echo "error: Insufficient permissions, try to run with sudo or as root" && exit 1
+
+echo "=> closing discord instances"
+killall -SIGKILL Discord
+killall -SIGKILL DiscordCanary
+killall -SIGKILL DiscordPTB
+
+echo "=> cleaning up install remains"
+rm /tmp/bd.zip
+rm -rf /tmp/bd
 
 echo "=> downloading files"
 wget -O /tmp/bd.zip https://github.com/Jiiks/BetterDiscordApp/archive/stable16.zip
