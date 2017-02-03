@@ -1,3 +1,4 @@
+# Warning: most of these are out of date atm
 # Plugins:
 ##Translate with Google
 
