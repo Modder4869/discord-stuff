@@ -3,40 +3,51 @@
 # first argument should be discord directory
 # deps: nodejs asar(install through npm install -g asar), sed, wget, unzip
 # (c) Ckat 2017-02-03
+# Changes by simonizor 2017-02-04
 
-ROOT_UID="0"
-[ -z "$1" ] && echo "error: No discord directory supplied" && exit 1
-[ "$UID" -ne "$ROOT_UID" ] && echo "error: Insufficient permissions, try to run with sudo or as root" && exit 1
+echo -n "Input the directory you would like to install BetterDiscord to and press [ENTER]"
+read DIR
+if [[ "$DIR" != /* ]]; then
+	echo "Invalid directory.  Exiting."
+	exit 1
+fi
+if [ "${DIR: -1}" = "/" ]; then
+	DIR="${DIR::-1}"
+fi
 
-echo "=> closing discord instances"
+echo "Installing BetterDiscord to" "$DIR" "..."
+echo "Closing any open Discord instances"
 killall -SIGKILL Discord
 killall -SIGKILL DiscordCanary
 killall -SIGKILL DiscordPTB
 
 echo "=> cleaning up install remains"
-rm /tmp/bd.zip
-rm -rf /tmp/bd
+sudo rm /tmp/bd.zip
+sudo rm -rf /tmp/bd
+	
+echo "Installing asar"
+sudo npm install asar -g
 
-echo "=> downloading files"
+echo "Downloading BetterDiscord..."
 wget -O /tmp/bd.zip https://github.com/Jiiks/BetterDiscordApp/archive/stable16.zip
 
-echo "=> preparing betterdiscord files"
+echo "Preparing BetterDiscord files..."
 unzip /tmp/bd.zip 
-mv ./BetterDiscordApp-stable16 /tmp/bd
-mv /tmp/bd/lib/Utils.js /tmp/bd/lib/utils.js
+sudo mv ./BetterDiscordApp-stable16 /tmp/bd
+sudo mv /tmp/bd/lib/Utils.js /tmp/bd/lib/utils.js
 sed -i "s/'\/var\/local'/process.env.HOME + '\/.config'/g" /tmp/bd/lib/BetterDiscord.js
 
-echo "=> removing old app folder"
-rm -rf "$1/resources/app"
+echo "Removing app folder from Discord directory..."
+sudo rm -rf "$DIR/resources/app"
 
-echo "=> unpacking discord asar"
-asar e "$1/resources/app.asar" "$1/resources/app"
+echo "Unpackin Discord asar..."
+sudo asar e "$DIR/resources/app.asar" "$DIR/resources/app"
 
-echo "=> preparing discord files"
-sed "/_fs2/ a var _betterDiscord = require('betterdiscord'); var _betterDiscord2;" "$1/resources/app/index.js" > /tmp/bd/index.js
-mv /tmp/bd/index.js "$1/resources/app/index.js"
-sed "/mainWindow = new/ a _betterDiscord2 = new _betterDiscord.BetterDiscord(mainWindow);" "$1/resources/app/index.js" > /tmp/bd/index.js
-mv /tmp/bd/index.js "$1/resources/app/index.js"
+echo "Preparing Discord files..."
+sed "/_fs2/ a var _betterDiscord = require('betterdiscord'); var _betterDiscord2;" "$DIR/resources/app/index.js" > /tmp/bd/index.js
+sudo mv /tmp/bd/index.js "$DIR/resources/app/index.js"
+sed "/mainWindow = new/ a _betterDiscord2 = new _betterDiscord.BetterDiscord(mainWindow);" "$DIR/resources/app/index.js" > /tmp/bd/index.js
+sudo mv /tmp/bd/index.js "$DIR/resources/app/index.js"
 
-echo "=> finishing up"
-mv /tmp/bd "$1/resources/app/node_modules/betterdiscord"
+echo "Finishing up..."
+sudo mv /tmp/bd "$DIR/resources/app/node_modules/betterdiscord"
