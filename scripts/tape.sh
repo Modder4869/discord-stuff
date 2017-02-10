@@ -1,12 +1,16 @@
 #!/bin/sh
 # simple script to install bd
-# first argument should be discord directory
-# deps: nodejs asar(install through npm install -g asar), sed, wget, unzip
+# first argument can be discord directory
+# deps: nodejs (for asar install), sed, wget, unzip
 # (c) Ckat 2017-02-03
 # Changes by simonizor 2017-02-04
 
-echo -n "Input the directory you would like to install BetterDiscord to and press [ENTER]"
-read DIR
+if [[ -z "$1" ]]; then
+    echo -n "Input the directory you would like to install BetterDiscord to and press [ENTER]"
+    read DIR
+else
+    DIR=$1
+fi
 if [[ "$DIR" != /* ]]; then
 	echo "Invalid directory.  Exiting."
 	exit 1
@@ -16,16 +20,16 @@ if [ "${DIR: -1}" = "/" ]; then
 fi
 
 echo "Installing BetterDiscord to" "$DIR" "..."
-echo "Closing any open Discord instances"
+echo "Closing any open Discord instances..."
 killall -SIGKILL Discord
 killall -SIGKILL DiscordCanary
 killall -SIGKILL DiscordPTB
 
-echo "=> cleaning up install remains"
+echo "Cleaning old install..."
 sudo rm /tmp/bd.zip
 sudo rm -rf /tmp/bd
 	
-echo "Installing asar"
+echo "Installing asar..."
 sudo npm install asar -g
 
 echo "Downloading BetterDiscord..."
