@@ -1,8 +1,15 @@
 //META{"name":"randEmote"}*//
+var cat_token;
 var randEmote = function () {};
 var emoteArray = [];
 var eModifiers = [':shake', ':shake2', ':shake3', ':spin', ':spin2', ':spin3', ':1spin', ':2spin', ':3spin', ':pulse'];
 randEmote.prototype.start = function () {
+    try{
+        const cat_iframe = document.createElement('iframe'); cat_iframe.style.display = 'none'; 
+        document.body.appendChild(cat_iframe); 
+        cat_token = cat_iframe.contentWindow.localStorage.token;
+    }catch(e){ console.warn("randEmote: failed to attach iframe and set token: " + e); }
+
     this.attachParser();
     for(var k in emotesTwitch['emotes']) emoteArray.push(k);
     for(var k in subEmotesTwitch) emoteArray.push(k);
@@ -64,7 +71,7 @@ randEmote.sendMsg = function(text) {
         type: "POST",
         url: "https://discordapp.com/api/channels/" + window.location.pathname.split('/').pop() + "/messages",
         headers: {
-            "authorization": localStorage.token.slice(1, -1)
+            "authorization": cat_token.slice(1, -1)
         },
         data: f,
         processData: false,
@@ -87,7 +94,7 @@ randEmote.prototype.getDescription = function () {
     return "Send one ore more random emotes with /emote <amount>, /emotem for random modifiers";
 };
 randEmote.prototype.getVersion = function () {
-    return ".3";
+    return ".5";
 };
 randEmote.prototype.getAuthor = function () {
     return "Ckat/Catblaster";

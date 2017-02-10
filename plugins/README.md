@@ -1,18 +1,9 @@
-# Warning: most of these are out of date atm
 # Plugins:
 ##Translate with Google
 
 Adds a "Translate with Google" option, similar to the existing "Search with Google"
 
-##Animate Avatars
-
-Terribly inefficient way to always animate avatars, which is also terribly inefficient.
-
-## ~~No Emoji~~Discord broke it
-
-~~Replaces emoji pics with whatever is in their alt attribute,  most of the time the symbol version of emoji.~~
-
-![NoEmoji](https://ckat.space/ship/FB5.png)
+![TranslateOption](https://ckat.space/ship/Kf9.png)
 
 ##Random Emotes
 
@@ -25,6 +16,18 @@ Send one or more random emotes with /emote amount
 Search through all emotes in BD with /es uremotesearch
 
 ![searchEmote](https://ckat.space/ship/Mzy.gif)
+
+##Animate Avatars
+
+Terribly inefficient way to always animate avatars, which is also terribly inefficient.
+
+noodlebox has made a better version of this, please refer to that one
+
+## ~~No Emoji~~Discord broke it
+
+~~Replaces emoji pics with whatever is in their alt attribute,  most of the time the symbol version of emoji.~~
+
+![NoEmoji](https://ckat.space/ship/FB5.png)
 
 ## ~~Mention all~~BetterAPI broke it
 
