@@ -25,7 +25,7 @@ unzip /tmp/bd.zip
 mv ./BetterDiscordApp-stable16 /tmp/bd
 mv /tmp/bd/lib/Utils.js /tmp/bd/lib/utils.js
 sed -i "s/'\/var\/local'/process.env.HOME + '\/.config'/g" /tmp/bd/lib/BetterDiscord.js
-sed -i "s/bdStorage/bdstorage/g" /tmp/bd/lib/BetterDiscord.js
+sed -i "s/bdstorage/bdStorage/g" /tmp/bd/lib/BetterDiscord.js
 
 echo "=> removing old app folder"
 rm -rf "$1/resources/app"
