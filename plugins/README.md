@@ -5,6 +5,16 @@ Adds a "Translate with Google" option, similar to the existing "Search with Goog
 
 ![TranslateOption](https://ckat.space/ship/Kf9.png)
 
+##actual-httpcats-background
+
+shitty rewrite of a plugin that was used to steal tokens, this version isnt harmful
+
+set random cat pics from http.cat as background every 10 seconds. ''''inspired'''' by martmists' plugin. only works with transparent themes.
+
+##Start Maximized
+
+maximizes the client on startup
+
 ##Random Emotes
 
 Send one or more random emotes with /emote amount
