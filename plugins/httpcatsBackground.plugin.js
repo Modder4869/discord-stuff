@@ -10,7 +10,10 @@ httpcatsBackground.prototype.start = function() {
     this.interval = setInterval(this.newCat, 10000);
     this.newCat();
 }
-httpcatsBackground.prototype.stop = function () { clearInterval(this.interval); };
+httpcatsBackground.prototype.stop = function () { 
+    clearInterval(this.interval); 
+    $('.app').attr('style', "");
+};
 httpcatsBackground.prototype.onSwitch = function () {};
 httpcatsBackground.prototype.load = function () {};
 httpcatsBackground.prototype.unload = function () {};
