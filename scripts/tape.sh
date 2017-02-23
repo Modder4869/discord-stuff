@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # simple script to install bd
 # first argument can be discord directory
 # deps: nodejs (for asar install), sed, wget, unzip
