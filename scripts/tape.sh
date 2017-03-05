@@ -19,6 +19,7 @@ if [ "${DIR: -1}" = "/" ]; then
     DIR="${DIR::-1}"
 fi
 
+echo "Checking deps..."
 npmIsInstalled=1
 nodejsIsInstalled=1
 wgetIsInstalled=1
@@ -49,7 +50,6 @@ fi
 if [ "$asarIsInstalled" = "0" ]; then
     echo "Installing asar..."
     sudo npm install asar -g
-
 fi
 
 echo "Installing BetterDiscord to" "$DIR" "..."
@@ -75,7 +75,7 @@ sed -i "s/bdstorage/bdStorage/g" /tmp/bd/lib/BetterDiscord.js
 echo "Removing app folder from Discord directory..."
 sudo rm -rf "$DIR/resources/app"
 
-echo "Unpackin Discord asar..."
+echo "Unpacking Discord asar..."
 sudo asar e "$DIR/resources/app.asar" "$DIR/resources/app"
 
 echo "Preparing Discord files..."
