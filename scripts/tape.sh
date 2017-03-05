@@ -12,11 +12,44 @@ else
     DIR=$1
 fi
 if [[ "$DIR" != /* ]]; then
-	echo "Invalid directory.  Exiting."
-	exit 1
+    echo "Invalid directory.  Exiting."
+    exit 1
 fi
 if [ "${DIR: -1}" = "/" ]; then
-	DIR="${DIR::-1}"
+    DIR="${DIR::-1}"
+fi
+
+npmIsInstalled=1
+nodejsIsInstalled=1
+wgetIsInstalled=1
+unzipIsInstalled=1
+asarIsInstalled=1
+type npm >/dev/null 2>&1 || { npmIsInstalled=0; }
+type node >/dev/null 2>&1 || { nodejsIsInstalled=0; }
+type wget >/dev/null 2>&1 || { wgetIsInstalled=0; }
+type unzip >/dev/null 2>&1 || { unzipIsInstalled=0; }
+type asar >/dev/null 2>&1 || { asarIsInstalled=0; }
+
+if [ "$npmIsInstalled" = "0" ]; then
+    echo "npm not found, please install and try again"
+    exit 1
+fi
+if [ "$nodejsIsInstalled" = "0" ]; then
+    echo "nodejs not found, please install and try again"
+    exit 1
+fi
+if [ "$wgetIsInstalled" = "0" ]; then
+    echo "wget not found, please install and try again"
+    exit 1
+fi
+if [ "$unzipIsInstalled" = "0" ]; then
+    echo "unzip not found, please install and try again"
+    exit 1
+fi
+if [ "$asarIsInstalled" = "0" ]; then
+    echo "Installing asar..."
+    sudo npm install asar -g
+
 fi
 
 echo "Installing BetterDiscord to" "$DIR" "..."
@@ -28,9 +61,6 @@ killall -SIGKILL DiscordPTB
 echo "Cleaning old install..."
 sudo rm /tmp/bd.zip
 sudo rm -rf /tmp/bd
-	
-echo "Installing asar..."
-sudo npm install asar -g
 
 echo "Downloading BetterDiscord..."
 wget -O /tmp/bd.zip https://github.com/Jiiks/BetterDiscordApp/archive/stable16.zip
