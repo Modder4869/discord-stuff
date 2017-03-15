@@ -10,7 +10,7 @@ discordPTBRunning=1
 echo "Closing any open Discord instances..."
 killall -SIGKILL Discord >/dev/null 2>&1 || { discordRunning=0; }
 killall -SIGKILL DiscordCanary >/dev/null 2>&1 || { discordCanaryRunning=0; }
-killall -SIGKILL DiscordPTB >/dev/null 2>&1 || { discordCanaryRunning=0; }
+killall -SIGKILL DiscordPTB >/dev/null 2>&1 || { discordPTBRunning=0; }
 
 echo "Removing cache..."
 sudo rm $(sudo find / | grep "BetterDiscord/user.json")
