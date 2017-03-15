@@ -1,7 +1,7 @@
 # scripts
-Some scripts bd scripts for linux systems
+Some bd scripts for linux systems
 
-## tape.sh:
+## tape.sh
 A very basic install script to install bd, should get the job done most of the time
 
 usage: tape.sh (give directory or fill in later)
