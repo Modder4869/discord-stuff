@@ -1,7 +1,7 @@
 #!/bin/bash
 # simple script to install bd
 # first argument can be discord directory
-# deps: nodejs (for asar install), sed, wget, unzip
+# deps: nodejs (for asar install), wget, unzip
 # (c) Ckat 2017-02-03
 # Changes by simonizor 2017-02-04
 
@@ -25,6 +25,7 @@ nodejsIsInstalled=1
 wgetIsInstalled=1
 unzipIsInstalled=1
 asarIsInstalled=1
+asarIsInstalledCorrectly=1
 type npm >/dev/null 2>&1 || { npmIsInstalled=0; }
 type node >/dev/null 2>&1 || { nodejsIsInstalled=0; }
 type wget >/dev/null 2>&1 || { wgetIsInstalled=0; }
@@ -32,24 +33,30 @@ type unzip >/dev/null 2>&1 || { unzipIsInstalled=0; }
 type asar >/dev/null 2>&1 || { asarIsInstalled=0; }
 
 if [ "$npmIsInstalled" = "0" ]; then
-    echo "npm not found, please install and try again"
+    echo "npm not found, unable to continue"
     exit 1
 fi
 if [ "$nodejsIsInstalled" = "0" ]; then
-    echo "nodejs not found, please install and try again"
+    echo "nodejs not found, unable to continue"
     exit 1
 fi
 if [ "$wgetIsInstalled" = "0" ]; then
-    echo "wget not found, please install and try again"
+    echo "wget not found, unable to continue"
     exit 1
 fi
 if [ "$unzipIsInstalled" = "0" ]; then
-    echo "unzip not found, please install and try again"
+    echo "unzip not found, unable to continue"
     exit 1
 fi
 if [ "$asarIsInstalled" = "0" ]; then
     echo "Installing asar..."
     sudo npm install asar -g
+
+    type asar >/dev/null 2>&1 || { asarIsInstalledCorrectly=0; }
+    if [ "$asarIsInstalledCorrectly" = "0" ]; then
+        echo "failed to install asar, unable to continue"
+        exit 1
+    fi
 fi
 
 echo "Installing BetterDiscord to" "$DIR" "..."
