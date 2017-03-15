@@ -60,10 +60,14 @@ if [ "$asarIsInstalled" = "0" ]; then
 fi
 
 echo "Installing BetterDiscord to" "$DIR" "..."
+
+discordRunning=1
+discordCanaryRunning=1
+discordPTBRunning=1
 echo "Closing any open Discord instances..."
-killall -SIGKILL Discord
-killall -SIGKILL DiscordCanary
-killall -SIGKILL DiscordPTB
+killall -SIGKILL Discord >/dev/null 2>&1 || { discordRunning=0; }
+killall -SIGKILL DiscordCanary >/dev/null 2>&1 || { discordCanaryRunning=0; }
+killall -SIGKILL DiscordPTB >/dev/null 2>&1 || { discordCanaryRunning=0; }
 
 echo "Cleaning old install..."
 sudo rm /tmp/bd.zip
@@ -93,3 +97,16 @@ sudo mv /tmp/bd/index.js "$DIR/resources/app/index.js"
 
 echo "Finishing up..."
 sudo mv /tmp/bd "$DIR/resources/app/node_modules/betterdiscord"
+
+if [ "$discordRunning" = "1" ]; then
+    echo "Starting discord..."
+    discord>/dev/null&
+fi
+if [ "$discordCanaryRunning" = "1" ]; then
+    echo "Starting discord-canary..."
+    discord-canary>/dev/null&
+fi
+if [ "$discordPTBRunning" = "1" ]; then
+    echo "Starting discord-ptb..."
+    discord-ptb>/dev/null&
+fi
