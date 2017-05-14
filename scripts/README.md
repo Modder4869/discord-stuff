@@ -12,3 +12,11 @@ for a more featureful implementation which can also install discord and beautifu
 
 ## killcache.sh
 Similar to killcache.bat for windows found in the server, force reload emotes, needed sometimes when they break
+
+## uninstall.bat
+uninstall bd for windows, defaults to discord, specify ptb or canary to uninstall from those
+usage: 
+
+    uninstall.bat
+    uninstall.bat ptb
+    uninstall.bat canary
