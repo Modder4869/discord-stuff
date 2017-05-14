@@ -13,7 +13,12 @@ killall -SIGKILL DiscordCanary >/dev/null 2>&1 || { discordCanaryRunning=0; }
 killall -SIGKILL DiscordPTB >/dev/null 2>&1 || { discordPTBRunning=0; }
 
 echo "Removing cache..."
-sudo rm $(sudo find / | grep "BetterDiscord/user.json")
+if [ "$1" = "-f" ]; then
+    echo "Searching for directory..."
+    sudo rm $(sudo find / | grep "BetterDiscord/user.json")
+else
+    sudo rm ~/.config/BetterDiscord/user.json
+fi
 
 if [ "$discordRunning" = "1" ]; then
     echo "Starting discord..."
