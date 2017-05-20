@@ -21,34 +21,23 @@ if [ "${DIR: -1}" = "/" ]; then
 fi
 
 echo "Checking deps..."
-npmIsInstalled=1
-nodejsIsInstalled=1
-wgetIsInstalled=1
-asarIsInstalled=1
-asarIsInstalledCorrectly=1
-type npm >/dev/null 2>&1 || { npmIsInstalled=0; }
-type node >/dev/null 2>&1 || { nodejsIsInstalled=0; }
-type wget >/dev/null 2>&1 || { wgetIsInstalled=0; }
-type asar >/dev/null 2>&1 || { asarIsInstalled=0; }
-
-if [ "$npmIsInstalled" = "0" ]; then
+if ! type npm; then
     echo "npm not found, unable to continue"
     exit 1
 fi
-if [ "$nodejsIsInstalled" = "0" ]; then
+if ! type node; then
     echo "nodejs not found, unable to continue"
     exit 1
 fi
-if [ "$wgetIsInstalled" = "0" ]; then
+if ! type wget; then
     echo "wget not found, unable to continue"
     exit 1
 fi
-if [ "$asarIsInstalled" = "0" ]; then
+if ! type asar; then
     echo "Installing asar..."
     sudo npm install asar -g
 
-    type asar >/dev/null 2>&1 || { asarIsInstalledCorrectly=0; }
-    if [ "$asarIsInstalledCorrectly" = "0" ]; then
+    if ! type asar; then
         echo "failed to install asar, unable to continue"
         exit 1
     fi
