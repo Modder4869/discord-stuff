@@ -1,10 +1,13 @@
 # scripts
-Some bd scripts for linux systems
+Some bd scripts
 
 ## tape.sh
 A very basic install script to install bd, should get the job done most of the time
+either give directory as argument or fill it in prompt later
 
-usage: tape.sh (give directory or fill in later)
+usage: 
+
+    tape.sh (no arguments, discord directory)
 
 deps: nodejs (for asar install), wget, linux
 
