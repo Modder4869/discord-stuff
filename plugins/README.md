@@ -1,4 +1,7 @@
 # Plugins:
+## Start Online
+sets your status to Online on startup, handy for multiple clients or when you set yourself invisible on phone
+
 ## Translate with Google
 Adds a "Translate with Google" option, similar to the existing "Search with Google"
 
