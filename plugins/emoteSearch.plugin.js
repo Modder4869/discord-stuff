@@ -13,13 +13,13 @@ emoteSearch.prototype.start = function () {
     }catch(e){ console.warn('emoteSearch: failed to load emotes: ' + e); }
 };
 emoteSearch.prototype.attachParser = function(){
-    var el = $('.channel-textarea textarea');
+    var el = $('.textArea-20yzAH');
     if (el.length == 0) return;
     this.handleKeypress = function (e) {
         var code = e.keyCode || e.which;
         if(code !== 13) return;
         var text;
-	    try{var val = $('.channel-textarea textarea').val();
+	    try{var val = $('.textArea-20yzAH').val();
             if(val.startsWith('/es')){
 	            var arg = val.split(' ');
 	            if(arg[1] != undefined){
@@ -34,6 +34,10 @@ emoteSearch.prototype.attachParser = function(){
 	    }catch(e){ console.warn("emoteSearch: unable to attach to textarea: " + e); }
     };
     el[0].addEventListener("keydown", this.handleKeypress, false);
+};
+emoteSearch.alert = function (title, text) {
+    var cateAlert = '<div class="cate-alert" style="position:absolute; left:20%; top:40%; width:60%; height:30%; background-color:#0C090A; color:#b3b8c3"><center><b>'+title+'</b></center><button onclick="$(\'.cate-alert\').remove();" style="position:absolute;top:0px;right:0px;">X</button><hr/>'+text+'</div></div>';
+    $("body").append(cateAlert);
 };
 emoteSearch.search = function(s) {
     var matches = [];
@@ -57,23 +61,23 @@ emoteSearch.showPrompt = function(loopStart, loopEnd) {
         } else if (emotesBTTV2.hasOwnProperty(emoteKey)) {
             emote = '//cdn.betterttv.net/emote/' + emotesBTTV2[emoteKey] + '/1x'; 
         }
-        emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="$(\'.channel-textarea textarea\').val($(\'.channel-textarea textarea\').val()+\''+' '+emoteKey+'\')" class=emote src='+emote+' alt='+emoteKey+'></a></span>';
+        emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="$(\'.textArea-20yzAH\').val($(\'.textArea-20yzAH\').val()+\''+' '+emoteKey+'\'); document.getElementsByClassName(\'textArea-20yzAH\')[0].dispatchEvent(new Event(\'input\', { bubbles: true }))" class=emote src='+emote+' alt='+emoteKey+'></a></span>';
     }
     emotePics+='<br/>';
-    if(loopStart != 0){// dont ask me why i make new vars for start/end js refuses to do +100/-100 correctly when doing it inline
+    if(loopStart != 0){// dont ask me why i make new vars for start/end js refuses to do +100/-100 correctly when doing it inline, what do I look like to you some kind of professional js person
         var prevStart = loopStart-100;
         var prevEnd = loopStart;
-        emotePics += '<button onclick="$(\'.markdown-modal-close\').click(); emoteSearch.showPrompt('+ prevStart +','+ prevEnd +')"style="position:absolute;top:0px;left:10%;"><------</button>';
+        emotePics += '<button onclick="$(\'.cate-alert\').remove(); emoteSearch.showPrompt('+ prevStart +','+ prevEnd +')"style="position:absolute;top:0px;left:10%;">←</button>';
     }
     if(loopEnd != resultStore.length){
         var nextStart = loopEnd;
         var nextEnd = loopEnd+100;
-        emotePics += '<button onclick="$(\'.markdown-modal-close\').click(); emoteSearch.showPrompt('+ nextStart +','+ nextEnd +')" style="position:absolute;top:0px;right:10%;">------></button>';
+        emotePics += '<button onclick="$(\'.cate-alert\').remove(); emoteSearch.showPrompt('+ nextStart +','+ nextEnd +')" style="position:absolute;top:0px;right:10%;">→</button>';
     }
-
+    console.log('loopstart: '+loopStart+' loopend: '+loopEnd);
     var totalPages = resultStore.length % 100 == 0 ? resultStore.length/100 : (resultStore.length/100 | 0) + 1;
     var currentPage = loopEnd == resultStore.length ? totalPages : loopEnd/100;  
-    Core.prototype.alert(resultStore.length + " emotes found | page "+currentPage+"/"+totalPages,emotePics);
+    emoteSearch.alert(resultStore.length + " emotes found | page "+currentPage+"/"+totalPages,emotePics);
 }
 emoteSearch.prototype.onSwitch = function () {
     this.attachParser();
@@ -93,7 +97,7 @@ emoteSearch.prototype.getDescription = function () {
     return "Search through all emotes in bd with /es emoteuwant";
 };
 emoteSearch.prototype.getVersion = function () {
-    return ".2.2";
+    return ".5";
 };
 emoteSearch.prototype.getAuthor = function () {
     return "Ckat/Catblaster edited by confus";
