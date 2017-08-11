@@ -22,13 +22,13 @@ randEmote.prototype.onSwitch = function () {
     this.attachParser();
 }
 randEmote.prototype.attachParser = function(){
-    var el = $('.channel-textarea textarea');
+    var el = $('.textArea-20yzAH');
     if (el.length == 0) return;
     this.handleKeypress = function (e) {
         var code = e.keyCode || e.which;
         if(code !== 13) return;
         var text;
-	try{var val = $('.channel-textarea textarea').val();
+	try{var val = $('.textArea-20yzAH').val();
     if(val.startsWith('/emotem')){
 	    var arg = val.split(' ');
 	    if(arg[1] == undefined || isNaN(arg[1]))
