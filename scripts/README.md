@@ -1,5 +1,5 @@
 # scripts
-Some bd scripts
+Some scripts
 
 ## tape.sh
 A very basic install script to install bd, should get the job done most of the time
@@ -26,3 +26,10 @@ uninstall bd for windows, defaults to discord, specify ptb or canary to uninstal
 usage: 
 
     uninstall.bat (no arguments, ptb, canary)
+
+## statusblink.sh
+professional annoying status blinker, just set token variable in file
+
+usage: 
+    
+    statusblink.sh
