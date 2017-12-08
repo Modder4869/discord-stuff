@@ -11,6 +11,15 @@ emoteSearch.prototype.start = function () {
         var diff = (new Date).getTime() - start;
         console.log('emoteSearch: took ' + diff + 'ms');
     }catch(e){ console.warn('emoteSearch: failed to load emotes: ' + e); }
+     this.observer = function(e) {
+         if (!e.addedNodes.length || !(e.addedNodes[0] instanceof Element)) return;
+
+         var elem = e.addedNodes[0];
+
+         if (elem.querySelector(".textArea-20yzAH")) {
+             this.attachParser();
+         }
+     }
 };
 emoteSearch.prototype.attachParser = function(){
     var el = $('.textArea-20yzAH');
@@ -26,7 +35,7 @@ emoteSearch.prototype.attachParser = function(){
                     resultStore = emoteSearch.search(arg[1]);
 		            emoteSearch.showPrompt(0, 100); 
                 }
-                $(this).val("");
+                emoteSearch.setText("");
 	            e.preventDefault();
 	            e.stopPropagation();
 	            return;
@@ -44,14 +53,28 @@ emoteSearch.search = function(s) {
     for(var k in emoteStore) if(k.toLowerCase().indexOf(s.toLowerCase()) > -1) matches.push(k);
     return matches;
 };
+emoteSearch.setText = function(new_val) {
+    try {
+    $('.textArea-20yzAH')[0].selectionStart = 0;
+    $('.textArea-20yzAH')[0].selectionEnd = $('.textArea-20yzAH')[0].value.length;
+    document.execCommand("insertText", false, new_val);
+    } catch(e) { console.log('failed to set text: ' + e); }
+};
+emoteSearch.addText = function(new_val) {
+    try {
+    new_val = ' ' + new_val;
+    $('.textArea-20yzAH')[0].selectionEnd = $('.textArea-20yzAH')[0].value.length;
+    document.execCommand("insertText", false, new_val);
+    } catch(e) { console.log( 'failed to add text: ' + e); }
+};
 emoteSearch.showPrompt = function(loopStart, loopEnd) {
     var emotePics = "";
     if(loopEnd >= resultStore.length) loopEnd = resultStore.length;
     for(i=loopStart;i<loopEnd;i++){
         var emoteKey = resultStore[i];
         var emote = "";
-        if (emotesTwitch["emotes"].hasOwnProperty(emoteKey)) {
-            emote = '//static-cdn.jtvnw.net/emoticons/v1/' + emotesTwitch['emotes'][emoteKey].image_id + '/1.0' 
+        if (emotesTwitch.hasOwnProperty(emoteKey)) {
+            emote = '//static-cdn.jtvnw.net/emoticons/v1/' + emotesTwitch[emoteKey].id + '/1.0' 
         } else if (subEmotesTwitch.hasOwnProperty(emoteKey)) {
             emote = '//static-cdn.jtvnw.net/emoticons/v1/' + subEmotesTwitch[emoteKey] + '/1.0' 
         } else if (emotesFfz.hasOwnProperty(emoteKey)) {
@@ -61,7 +84,9 @@ emoteSearch.showPrompt = function(loopStart, loopEnd) {
         } else if (emotesBTTV2.hasOwnProperty(emoteKey)) {
             emote = '//cdn.betterttv.net/emote/' + emotesBTTV2[emoteKey] + '/1x'; 
         }
-        emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="$(\'.textArea-20yzAH\').val($(\'.textArea-20yzAH\').val()+\''+' '+emoteKey+'\'); document.getElementsByClassName(\'textArea-20yzAH\')[0].dispatchEvent(new Event(\'input\', { bubbles: true }))" class=emote src='+emote+' alt='+emoteKey+'></a></span>';
+        // TODO: find out why the fuck this onclick doesnt work right away
+        // 1$ for anyone that fixes this without rewriting everything GumiStare
+        emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="emoteSearch.addText(\''+emoteKey+'\')" class=emote src='+emote+' alt='+emoteKey+'></a></span>';
     }
     emotePics+='<br/>';
     if(loopStart != 0){// dont ask me why i make new vars for start/end js refuses to do +100/-100 correctly when doing it inline, what do I look like to you some kind of professional js person
@@ -74,7 +99,6 @@ emoteSearch.showPrompt = function(loopStart, loopEnd) {
         var nextEnd = loopEnd+100;
         emotePics += '<button onclick="$(\'.cate-alert\').remove(); emoteSearch.showPrompt('+ nextStart +','+ nextEnd +')" style="position:absolute;top:0px;right:10%;">→</button>';
     }
-    console.log('loopstart: '+loopStart+' loopend: '+loopEnd);
     var totalPages = resultStore.length % 100 == 0 ? resultStore.length/100 : (resultStore.length/100 | 0) + 1;
     var currentPage = loopEnd == resultStore.length ? totalPages : loopEnd/100;  
     emoteSearch.alert(resultStore.length + " emotes found | page "+currentPage+"/"+totalPages,emotePics);
@@ -97,7 +121,7 @@ emoteSearch.prototype.getDescription = function () {
     return "Search through all emotes in bd with /es emoteuwant";
 };
 emoteSearch.prototype.getVersion = function () {
-    return ".5";
+    return ".6-fuckjsedition";
 };
 emoteSearch.prototype.getAuthor = function () {
     return "Ckat/Catblaster edited by confus";

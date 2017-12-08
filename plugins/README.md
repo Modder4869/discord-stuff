@@ -1,4 +1,9 @@
 # Plugins:
+## Tab Complete
+Adds tabcompletion for favorited emotes
+     
+made by EshanKia, I only update it
+
 ## Start Online
 sets your status to Online on startup, handy for multiple clients or when you set yourself invisible on phone
 
