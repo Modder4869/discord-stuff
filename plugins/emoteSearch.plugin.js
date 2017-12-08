@@ -62,9 +62,12 @@ emoteSearch.setText = function(new_val) {
 };
 emoteSearch.addText = function(new_val) {
     try {
-    new_val = ' ' + new_val;
-    $('.textArea-20yzAH')[0].selectionEnd = $('.textArea-20yzAH')[0].value.length;
-    document.execCommand("insertText", false, new_val);
+        new_val = ' ' + new_val;
+        var textarea = $('.textArea-20yzAH')[0];
+        textarea.focus();
+        textarea.selectionStart = textarea.value.length;
+        textarea.selectionEnd = textarea.value.length;
+        document.execCommand("insertText", false, new_val);
     } catch(e) { console.log( 'failed to add text: ' + e); }
 };
 emoteSearch.showPrompt = function(loopStart, loopEnd) {
@@ -84,8 +87,6 @@ emoteSearch.showPrompt = function(loopStart, loopEnd) {
         } else if (emotesBTTV2.hasOwnProperty(emoteKey)) {
             emote = '//cdn.betterttv.net/emote/' + emotesBTTV2[emoteKey] + '/1x'; 
         }
-        // TODO: find out why the fuck this onclick doesnt work right away
-        // 1$ for anyone that fixes this without rewriting everything GumiStare
         emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="emoteSearch.addText(\''+emoteKey+'\')" class=emote src='+emote+' alt='+emoteKey+'></a></span>';
     }
     emotePics+='<br/>';
@@ -121,7 +122,7 @@ emoteSearch.prototype.getDescription = function () {
     return "Search through all emotes in bd with /es emoteuwant";
 };
 emoteSearch.prototype.getVersion = function () {
-    return ".6-fuckjsedition";
+    return ".6-1";
 };
 emoteSearch.prototype.getAuthor = function () {
     return "Ckat/Catblaster edited by confus";
