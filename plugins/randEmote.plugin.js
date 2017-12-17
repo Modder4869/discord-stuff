@@ -11,7 +11,16 @@ randEmote.prototype.start = function () {
     }catch(e){ console.warn("randEmote: failed to attach iframe and set token: " + e); }
 
     this.attachParser();
-    for(var k in emotesTwitch['emotes']) emoteArray.push(k);
+    this.observer = function(e) {
+        if (!e.addedNodes.length || !(e.addedNodes[0] instanceof Element)) return;
+
+        var elem = e.addedNodes[0];
+
+        if (elem.querySelector(".textArea-20yzAH")) {
+            this.attachParser();
+        }
+    }
+    for(var k in emotesTwitch) emoteArray.push(k);
     for(var k in subEmotesTwitch) emoteArray.push(k);
     for(var k in emotesFfz) emoteArray.push(k);
     for(var k in emotesBTTV) emoteArray.push(k);
@@ -35,7 +44,6 @@ randEmote.prototype.attachParser = function(){
 		    randEmote.sendMsg(emoteArray[Math.floor(Math.random()*emoteArray.length)] + eModifiers[Math.floor(Math.random()*eModifiers.length)]);
 	    else
 		    randEmote.sendMsg(randEmote.getEmote(arg[1], true));
-	    $(this).val("");
 	    e.preventDefault();
 	    e.stopPropagation();
 	    return;
@@ -94,7 +102,7 @@ randEmote.prototype.getDescription = function () {
     return "Send one ore more random emotes with /emote <amount>, /emotem for random modifiers";
 };
 randEmote.prototype.getVersion = function () {
-    return ".5";
+    return ".6";
 };
 randEmote.prototype.getAuthor = function () {
     return "Ckat/Catblaster";
