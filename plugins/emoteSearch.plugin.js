@@ -6,8 +6,12 @@ emoteSearch.prototype.start = function () {
     this.attachParser();
     var start = (new Date).getTime();
     try{
-        emoteStore = jQuery.extend({}, emotesTwitch["emotes"], subEmotesTwitch, emotesFfz, emotesBTTV, emotesBTTV2);
-        console.log('emoteSearch: emotes loaded');
+        emoteStore = jQuery.extend({}, emotesTwitch, subEmotesTwitch, emotesFfz, emotesBTTV, emotesBTTV2);
+        if (Object.keys(emoteStore).length < 10) {
+            console.error('emoteSearch: zerebos probably broke it go ping him')
+        } else {
+            console.log('emoteSearch: emotes loaded');
+        }
         var diff = (new Date).getTime() - start;
         console.log('emoteSearch: took ' + diff + 'ms');
     }catch(e){ console.warn('emoteSearch: failed to load emotes: ' + e); }
@@ -122,9 +126,9 @@ emoteSearch.prototype.getDescription = function () {
     return "Search through all emotes in bd with /es emoteuwant";
 };
 emoteSearch.prototype.getVersion = function () {
-    return ".6-1";
+    return ".77";
 };
 emoteSearch.prototype.getAuthor = function () {
-    return "Ckat/Catblaster edited by confus";
+    return "Ckat/Catblaster edited by confus, zerebos also helped I guess";
 };
 
