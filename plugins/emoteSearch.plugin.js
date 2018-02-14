@@ -1,134 +1,259 @@
 //META{"name":"emoteSearch"}*//
-var emoteSearch = function () {};
-var emoteStore;
-var resultStore = [];
-emoteSearch.prototype.start = function () {
-    this.attachParser();
-    var start = (new Date).getTime();
-    try{
-        emoteStore = jQuery.extend({}, emotesTwitch, subEmotesTwitch, emotesFfz, emotesBTTV, emotesBTTV2);
-        if (Object.keys(emoteStore).length < 10) {
-            console.error('emoteSearch: zerebos probably broke it go ping him')
-        } else {
-            console.log('emoteSearch: emotes loaded');
-        }
-        var diff = (new Date).getTime() - start;
-        console.log('emoteSearch: took ' + diff + 'ms');
-    }catch(e){ console.warn('emoteSearch: failed to load emotes: ' + e); }
-     this.observer = function(e) {
-         if (!e.addedNodes.length || !(e.addedNodes[0] instanceof Element)) return;
 
-         var elem = e.addedNodes[0];
+/* global BdApi:false, emotesTwitch:false, subEmotesTwitch:false, emotesFfz:false, emotesBTTV:false, emotesBTTV2:false */
 
-         if (elem.querySelector(".textArea-20yzAH")) {
-             this.attachParser();
-         }
-     }
-};
-emoteSearch.prototype.attachParser = function(){
-    var el = $('.textArea-20yzAH');
-    if (el.length == 0) return;
-    this.handleKeypress = function (e) {
-        var code = e.keyCode || e.which;
-        if(code !== 13) return;
-        var text;
-	    try{var val = $('.textArea-20yzAH').val();
-            if(val.startsWith('/es')){
-	            var arg = val.split(' ');
-	            if(arg[1] != undefined){
-                    resultStore = emoteSearch.search(arg[1]);
-		            emoteSearch.showPrompt(0, 100); 
-                }
-                emoteSearch.setText("");
-	            e.preventDefault();
-	            e.stopPropagation();
-	            return;
-	        }
-	    }catch(e){ console.warn("emoteSearch: unable to attach to textarea: " + e); }
-    };
-    el[0].addEventListener("keydown", this.handleKeypress, false);
-};
-emoteSearch.alert = function (title, text) {
-    var cateAlert = '<div class="cate-alert" style="position:absolute; left:20%; top:40%; width:60%; height:30%; background-color:#0C090A; color:#b3b8c3"><center><b>'+title+'</b></center><button onclick="$(\'.cate-alert\').remove();" style="position:absolute;top:0px;right:0px;">X</button><hr/>'+text+'</div></div>';
-    $("body").append(cateAlert);
-};
-emoteSearch.search = function(s) {
-    var matches = [];
-    for(var k in emoteStore) if(k.toLowerCase().indexOf(s.toLowerCase()) > -1) matches.push(k);
-    return matches;
-};
-emoteSearch.setText = function(new_val) {
-    try {
-    $('.textArea-20yzAH')[0].selectionStart = 0;
-    $('.textArea-20yzAH')[0].selectionEnd = $('.textArea-20yzAH')[0].value.length;
-    document.execCommand("insertText", false, new_val);
-    } catch(e) { console.log('failed to set text: ' + e); }
-};
-emoteSearch.addText = function(new_val) {
-    try {
-        new_val = ' ' + new_val;
-        var textarea = $('.textArea-20yzAH')[0];
-        textarea.focus();
-        textarea.selectionStart = textarea.value.length;
-        textarea.selectionEnd = textarea.value.length;
-        document.execCommand("insertText", false, new_val);
-    } catch(e) { console.log( 'failed to add text: ' + e); }
-};
-emoteSearch.showPrompt = function(loopStart, loopEnd) {
-    var emotePics = "";
-    if(loopEnd >= resultStore.length) loopEnd = resultStore.length;
-    for(i=loopStart;i<loopEnd;i++){
-        var emoteKey = resultStore[i];
-        var emote = "";
-        if (emotesTwitch.hasOwnProperty(emoteKey)) {
-            emote = '//static-cdn.jtvnw.net/emoticons/v1/' + emotesTwitch[emoteKey].id + '/1.0' 
-        } else if (subEmotesTwitch.hasOwnProperty(emoteKey)) {
-            emote = '//static-cdn.jtvnw.net/emoticons/v1/' + subEmotesTwitch[emoteKey] + '/1.0' 
-        } else if (emotesFfz.hasOwnProperty(emoteKey)) {
-            emote = '//cdn.frankerfacez.com/emoticon/' + emotesFfz[emoteKey] + '/1'; 
-        } else if (emotesBTTV.hasOwnProperty(emoteKey)) {
-            emote = emotesBTTV[emoteKey];
-        } else if (emotesBTTV2.hasOwnProperty(emoteKey)) {
-            emote = '//cdn.betterttv.net/emote/' + emotesBTTV2[emoteKey] + '/1x'; 
-        }
-        emotePics += '<span class=emotewrapper><a href=#><img draggable=false onclick="emoteSearch.addText(\''+emoteKey+'\')" class=emote src='+emote+' alt='+emoteKey+'></a></span>';
-    }
-    emotePics+='<br/>';
-    if(loopStart != 0){// dont ask me why i make new vars for start/end js refuses to do +100/-100 correctly when doing it inline, what do I look like to you some kind of professional js person
-        var prevStart = loopStart-100;
-        var prevEnd = loopStart;
-        emotePics += '<button onclick="$(\'.cate-alert\').remove(); emoteSearch.showPrompt('+ prevStart +','+ prevEnd +')"style="position:absolute;top:0px;left:10%;">←</button>';
-    }
-    if(loopEnd != resultStore.length){
-        var nextStart = loopEnd;
-        var nextEnd = loopEnd+100;
-        emotePics += '<button onclick="$(\'.cate-alert\').remove(); emoteSearch.showPrompt('+ nextStart +','+ nextEnd +')" style="position:absolute;top:0px;right:10%;">→</button>';
-    }
-    var totalPages = resultStore.length % 100 == 0 ? resultStore.length/100 : (resultStore.length/100 | 0) + 1;
-    var currentPage = loopEnd == resultStore.length ? totalPages : loopEnd/100;  
-    emoteSearch.alert(resultStore.length + " emotes found | page "+currentPage+"/"+totalPages,emotePics);
+/* eslint-disable no-console */
+
+class emoteSearch {
+
+	constructor() {
+        this.lastSearch = '';
+		this.emoteStore = {};
+
+		this.css = `/* emoteSearch CSS */
+
+		@keyframes backdrop-open {
+			to { opacity: 0.85; }
+		}
+
+		@keyframes modal-open {
+			to { transform: scale(1); opacity: 1; }
+		}
+
+		@keyframes backdrop-close {
+			to { opacity: 0; }
+		}
+
+		@keyframes modal-close {
+			to { transform: scale(0.7); opacity: 0; }
+		}
+
+		#emoteSearchModal .backdrop-2ohBEd {
+			animation: backdrop-open 250ms ease;
+			animation-fill-mode: forwards;
+			opacity: 0;
+			background-color: rgb(0, 0, 0);
+			transform: translateZ(0px);
+		}
+
+		#emoteSearchModal.closing .backdrop-2ohBEd {
+			animation: backdrop-close 200ms linear;
+			animation-fill-mode: forwards;
+			animation-delay: 50ms;
+			opacity: 0.85;
+		}
+
+		#emoteSearchModal.closing .modal-2LIEKY {
+			animation: modal-close 250ms cubic-bezier(0.19, 1, 0.22, 1);
+			animation-fill-mode: forwards;
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		#emoteSearchModal .modal-2LIEKY {
+			animation: modal-open 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+			animation-fill-mode: forwards;
+			transform: scale(0.7);
+			opacity: 0;
+		}
+
+		#emoteSearchModal .emote-list {
+			padding: 12px;
+			min-height: 245px;
+		}
+
+		#emoteSearchModal .footer {
+			display: flex;
+			justify-content: space-between;
+			color: white;
+		}
+
+		#emoteSearchModal .page-button {
+			cursor: pointer;
+		}
+
+		#emoteSearchModal .page-button.disabled {
+			pointer-events: none;
+			color: transparent;
+		}
+		`;
+
+		this.modalHTML = `<div id="emoteSearchModal" class="theme-dark">
+		<div class="backdrop-2ohBEd"></div>
+		<div class="modal-2LIEKY">
+			<div class="inner-1_1f7b">
+				<div class="modal-3HOjGZ size-2pbXxj">
+					<div class="flex-lFgbSz flex-3B1Tl4 horizontal-2BEEBe horizontal-2VE-Fw flex-3B1Tl4 directionRow-yNbSvJ justifyStart-2yIZo0 alignCenter-3VxkQP noWrap-v6g9vO header-3sp3cE">
+						<h4 class="title h4-2IXpeI title-1pmpPr size16-3IvaX_ height20-165WbF weightSemiBold-T8sxWH defaultColor-v22dK1 defaultMarginh4-jAopYe marginReset-3hwONl"></h4>
+						<svg viewBox="0 0 12 12" name="Close" width="18" height="18" class="close-button close-3ejNTg flexChild-1KGW5q"><g fill="none" fill-rule="evenodd"><path d="M0 0h12v12H0"></path><path class="fill" fill="currentColor" d="M9.5 3.205L8.795 2.5 6 5.295 3.205 2.5l-.705.705L5.295 6 2.5 8.795l.705.705L6 6.705 8.795 9.5l.705-.705L6.705 6"></path></g></svg>
+					</div>
+					<div class="scrollerWrap-2uBjct content-1Cut5s scrollerThemed-19vinI themeGhostHairline-2H8SiW">
+						<div class="emote-list scroller-fzNley inner-tqJwAU">
+	
+						</div>
+					</div>
+					<div class="footer footer-1PYmcw">
+						<div class="page-button previous">←</div>
+						<div class="page-indicator"></div>
+						<div class="page-button next">→</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>`;
+
+	}
+
+	start() {
+		BdApi.injectCSS(this.getName(), this.css);
+		this.attachParser();
+		var start = (new Date).getTime();
+		try {
+			this.emoteStore = jQuery.extend({}, emotesTwitch, subEmotesTwitch, emotesFfz, emotesBTTV, emotesBTTV2);
+			if (Object.keys(this.emoteStore).length < 10) {
+				console.error('emoteSearch: zerebos probably broke it go ping him');
+			} else {
+				console.log('emoteSearch: emotes loaded');
+			}
+			var diff = (new Date).getTime() - start;
+			console.log('emoteSearch: took ' + diff + 'ms');
+		}
+		catch(e) { console.warn('emoteSearch: failed to load emotes: ' + e); }
+	}
+
+	stop() {
+		$('*').off("." + this.getName());
+		BdApi.clearCSS(this.getName());
+	}
+
+	attachParser() {
+		var el = $('.textArea-20yzAH');
+		if (el.length == 0) return;
+		el.on("keydown." + this.getName(), this.handleKeypress.bind(this));
+	}
+
+	handleKeypress(e) {
+		var code = e.keyCode || e.which;
+		if(code !== 13) return;
+		try {
+			var val = $('.textArea-20yzAH').val();
+			if (val.startsWith('/es')){
+				var arg = val.split(' ');
+				if (arg[1] != undefined){
+                    this.lastSearch = arg[1];
+					this.showResults(this.search(arg[1])); 
+				}
+				this.setText("");
+				e.preventDefault();
+				e.stopPropagation();
+				return;
+			}
+		}
+		catch(e) { console.warn("emoteSearch: unable to attach to textarea: " + e); }
+	}
+
+	showResults(results) {
+		var modal = $(this.modalHTML);
+		var emoteList = modal.find('.emote-list');
+		var closeButton = modal.find('.close-button');
+		var backdrop = modal.find('.backdrop-2ohBEd');
+		var nextButton = modal.find('.next');
+		var prevButton = modal.find('.previous');
+		var pageLabel = modal.find('.page-indicator');
+		var closeModal = () => {
+			modal.addClass('closing');
+			setTimeout(() => { modal.remove(); }, 300);
+		};
+		closeButton.on('click', closeModal);
+		backdrop.on('click', closeModal);
+		modal.find('.title').text(results.length + " Results containing '" + this.lastSearch + "'");
+
+		var totalPages = results.length % 100 == 0 ? results.length / 100 : (results.length / 100 | 0) + 1;
+		var currentPage = 1;
+		if (totalPages == 0) totalPages = 1;
+
+		var changePage = (pageNum) => {
+			currentPage = pageNum;
+			if (totalPages == currentPage) nextButton.addClass("disabled");
+			else nextButton.removeClass("disabled");
+			if (currentPage == 1) prevButton.addClass("disabled");
+			else prevButton.removeClass("disabled");
+			pageLabel.text(`Page ${currentPage}/${totalPages}`);
+			emoteList.empty();
+			emoteList.append(this.getEmoteElements(results, (pageNum - 1) * 100, ((pageNum - 1) * 100) + 100));
+		};
+
+		changePage(1);
+
+		nextButton.on('click', () => {changePage(currentPage + 1);});
+		prevButton.on('click', () => {changePage(currentPage - 1);});
+
+		$("body").append(modal);
+	}
+
+	getEmoteElements(results, start, end) {
+		var emotes = [];
+		if (end >= results.length) end = results.length;
+		for (let i = start; i < end; i++){
+			var emoteKey = results[i];
+			var emote = "";
+
+			if (emotesTwitch.hasOwnProperty(emoteKey)) emote = '//static-cdn.jtvnw.net/emoticons/v1/' + emotesTwitch[emoteKey].id + '/1.0' ;
+			else if (subEmotesTwitch.hasOwnProperty(emoteKey)) emote = '//static-cdn.jtvnw.net/emoticons/v1/' + subEmotesTwitch[emoteKey] + '/1.0' ;
+			else if (emotesFfz.hasOwnProperty(emoteKey)) emote = '//cdn.frankerfacez.com/emoticon/' + emotesFfz[emoteKey] + '/1'; 
+			else if (emotesBTTV.hasOwnProperty(emoteKey)) emote = emotesBTTV[emoteKey];
+			else if (emotesBTTV2.hasOwnProperty(emoteKey)) emote = '//cdn.betterttv.net/emote/' + emotesBTTV2[emoteKey] + '/1x'; 
+
+			var element = $(`<span class="emotewrapper"><a href="#"><img draggable="false" class="emote" src="${emote}" alt="${emoteKey}"></a></span>`);
+			((el, key) => {
+				el.on('click', () => {this.addText(key);});
+				//el.find('img').on('error', () => {el.remove();});
+			})(element, emoteKey);
+			emotes.push(element);
+		}
+		return emotes;
+	}
+
+	search(s) {
+		var matches = [];
+		for (var k in this.emoteStore) if (k.toLowerCase().indexOf(s.toLowerCase()) > -1) matches.push(k);
+		return matches;
+	}
+
+	setText(new_val) {
+		try {
+			var textarea = $('.textArea-20yzAH')[0];
+			textarea.focus();
+			textarea.selectionStart = 0;
+			textarea.selectionEnd = textarea.value.length;
+			document.execCommand("insertText", false, new_val);
+		} catch(e) { console.log('failed to set text: ' + e); }
+	}
+
+	addText(new_val) {
+		try {
+			new_val = ' ' + new_val;
+			var textarea = $('.textArea-20yzAH')[0];
+			textarea.focus();
+			textarea.selectionStart = textarea.value.length;
+			textarea.selectionEnd = textarea.value.length;
+			document.execCommand("insertText", false, new_val);
+		} catch(e) { console.log( 'failed to add text: ' + e); }
+	}
+
+	observer(e) {
+		if (!e.addedNodes.length || !(e.addedNodes[0] instanceof Element)) return;
+		if (e.addedNodes[0].querySelector(".textArea-20yzAH"))	this.attachParser();
+	}
+
+
+	load() {}
+	onSwitch() { this.attachParser(); }
+	getSettingsPanel() { return ""; }
+	getName() { return "emoteSearch"; }
+	getDescription() { return "Search through all emotes in bd with /es emoteuwant"; }
+	getVersion() { return "1.0"; }
+	getAuthor() { return "Ckat/Catblaster edited by confus, rewritten by zerebos"; }
 }
-emoteSearch.prototype.onSwitch = function () {
-    this.attachParser();
-};
-emoteSearch.prototype.load = function () {};
-emoteSearch.prototype.unload = function () {};
-emoteSearch.prototype.stop = function () {};
-emoteSearch.prototype.onMessage = function () {};
-emoteSearch.prototype.observer = function (e) {};
-emoteSearch.prototype.getSettingsPanel = function () {
-    return "";
-};
-emoteSearch.prototype.getName = function () {
-    return "Emote search";
-};
-emoteSearch.prototype.getDescription = function () {
-    return "Search through all emotes in bd with /es emoteuwant";
-};
-emoteSearch.prototype.getVersion = function () {
-    return ".77";
-};
-emoteSearch.prototype.getAuthor = function () {
-    return "Ckat/Catblaster edited by confus, zerebos also helped I guess";
-};
 
+module.exports = emoteSearch;
