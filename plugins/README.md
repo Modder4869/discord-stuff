@@ -1,4 +1,7 @@
 # Plugins:
+## fix size
+for some reason discord has a minimal window size these days, this fixes it. just set a size and it'll be restored on start.
+
 ## Tab Complete
 Adds tabcompletion for favorited emotes
      
