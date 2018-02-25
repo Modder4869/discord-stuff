@@ -67,7 +67,7 @@ TabCompletion.prototype.getDescription = function() {
 };
 
 TabCompletion.prototype.getVersion = function() {
-	return "1.6-2";
+	return "1.6-3";
 };
 
 TabCompletion.prototype.getAuthor = function() {
@@ -110,6 +110,7 @@ TabCompletion.prototype.attachHandler = function() {
 
 	// Handler to catch key events
 	this.handleKeypress = function (e) {
+		if (document.querySelector(".autocomplete-1TnWNR, .autocomplete-1LLKUa")) return;
 		var code = e.keyCode || e.which;
 		if (code == 9) { // tab pressed
 			e.preventDefault();
