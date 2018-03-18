@@ -2,6 +2,11 @@
 ## fix size
 for some reason discord has a minimal window size these days, this fixes it. just set a size and it'll be restored on start.
 
+## Send Raw
+send messages raw through api by throwing /r anywhere in your message
+
+![SendRaw](https://ckat.space/ship/UVC.gif)
+
 ## Tab Complete
 Adds tabcompletion for favorited emotes
      
