@@ -105,6 +105,9 @@ class emoteSearch {
 	}
 
 	start() {
+		emotesFfz.hasOwnProperty = function(prop) {
+			return Object.hasOwnProperty.call(this, prop);
+		}
 		BdApi.injectCSS(this.getName(), this.css);
 		this.attachParser();
 		var start = (new Date).getTime();
