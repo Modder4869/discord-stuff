@@ -38,7 +38,7 @@ TabCompletion.prototype.start = function() {
 
          var elem = e.addedNodes[0];
 
-         if (elem.querySelector(".textArea-20yzAH")) {
+         if (elem.querySelector(".textArea-2Spzkt")) {
              this.attachHandler();
          }
      }
@@ -49,7 +49,7 @@ TabCompletion.prototype.onSwitch = function() {
 };
 
 TabCompletion.prototype.stop = function() {
-	var el = $('.textArea-20yzAH');
+	var el = $('.textArea-2Spzkt');
 	if (el.length == 0) return;
 
 	// Remove handlers and injected script
@@ -75,7 +75,7 @@ TabCompletion.prototype.getAuthor = function() {
 };
 
 TabCompletion.prototype.attachHandler = function() {
-	var el = $('.textArea-20yzAH');
+	var el = $('.textArea-2Spzkt');
 	if (el.hasClass("TabComplete")) return;
 	if (el.length == 0) return;
 
@@ -110,7 +110,7 @@ TabCompletion.prototype.attachHandler = function() {
 
 	// Handler to catch key events
 	this.handleKeypress = function (e) {
-		if (document.querySelector(".autocomplete-1TnWNR, .autocomplete-1LLKUa")) return;
+		if (document.querySelector(".autocomplete-1vrmpx, .autocomplete-i9yVHs")) return;
 		var code = e.keyCode || e.which;
 		if (code == 9) { // tab pressed
 			e.preventDefault();
